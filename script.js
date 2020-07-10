@@ -37,9 +37,20 @@ function checkRequired(inputArr) {
   });
 }
 
+function checkLength(input, min, max) {
+  if(input.value.length < min) {
+    showError(input, `${getFieldName(input)} must be at least ${min} chars`);
+  } else if(input.value.length > max) {
+    showError(input, `${getFieldName(input)} must be less than ${max} chars`);
+  } else {
+    showSuccess(input);
+  }
+}
+
 function getFieldName(input) {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
 }
+
 
 // Event listeners
 form.addEventListener('submit', function(e) {
@@ -71,4 +82,6 @@ form.addEventListener('submit', function(e) {
   // }
 
   checkRequired([username, email, password, password2]);
+  checkLength(username, 3, 15);
+  checkLength(password, 6, 20);
 });
